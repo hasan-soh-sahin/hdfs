@@ -1,0 +1,16 @@
+today=`date +'%s'`
+days_to_keep=1
+
+# Loop through files
+hdfs dfs -ls -R /spark2-history/ | while read f; do
+  # Get File Date and File Name
+  file_date=`echo $f | awk '{print $6}'`
+  file_name=`echo $f | awk '{print $8}'`
+
+  # Calculate Days Difference
+  difference=$(( ($today - $(date -d $file_date +%s)) / (24 * 60 * 60) ))
+  if [ $difference -gt $days_to_keep ]; then
+    echo "Deleting $file_name it is older than $days_to_keep and is dated $file_date."
+    hdfs dfs -rm -r -skipTrash $file_name
+  fi
+done
