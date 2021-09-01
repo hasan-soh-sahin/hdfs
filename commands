@@ -1,0 +1,7 @@
+root@node1 scripts]# sudo -u hdfs hdfs dfs -du -s -h /spark2-history
+11.1 G  111.2 G  /spark2-history
+
+sudo -u hdfs hdfs dfs -cat  /spark2-history/application_1621407636133_12012
+
+
+sudo -u hdfs hdfs dfs -ls /spark2-history | more
