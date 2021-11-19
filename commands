@@ -5,3 +5,9 @@ sudo -u hdfs hdfs dfs -cat  /spark2-history/application_1621407636133_12012
 
 
 sudo -u hdfs hdfs dfs -ls /spark2-history | more
+
+#sum all sub dir
+ sudo -u hdfs hdfs dfs -du -h -s /user/elasticsearch/snapshot
+ 
+ #give the size of each subdirectory 
+  sudo -u hdfs hdfs dfs -du -h /user/elasticsearch/snapshot
