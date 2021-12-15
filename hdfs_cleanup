@@ -1,0 +1,9 @@
+# sudo -u hdfs hdfs dfs -df -h /
+Filesystem               Size   Used  Available  Use%
+hdfs://akanameservice  21.2 T  8.1 T     13.1 T   38%
+
+del3.sh
+
+ sudo -u hdfs hdfs dfs -df -h /
+Filesystem               Size   Used  Available  Use%
+hdfs://akanameservice  21.2 T  4.1 T     17.1 T   19%
