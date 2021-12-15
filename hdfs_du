@@ -1,0 +1,1 @@
+[]# sudo -u hdfs hdfs dfs -du -h /user/elasticsearch/snapshot/indices
