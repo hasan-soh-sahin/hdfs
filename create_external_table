@@ -1,0 +1,16 @@
+sudo -u hdfs hdfs dfs -rm -r  hdfs://cluster/warehouse/tablespace/external/hive/some_2
+
+
+CREATE EXTERNAL TABLE some_2         
+ROW FORMAT SERDE                                   
+'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'  
+STORED AS INPUTFORMAT                              
+'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat'  
+OUTPUTFORMAT                                       
+'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
+LOCATION                                           
+   'hdfs://akanameservice/warehouse/tablespace/external/hive/some_2' 
+as 
+   select id as alarm_id from some_1; 
+   
+   
