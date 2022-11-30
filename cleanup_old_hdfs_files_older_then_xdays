@@ -1,0 +1,23 @@
+log_ts=`date +%Y%m%d`
+log=/root/scripts/performance_tracing/log/cleanup_ekranperformance_daily_$log_ts.log
+
+
+tmpfile=/tmp/some_temp1
+tmpfile2=/tmp/some_temp2
+#tmpfile=$(mktemp)
+#HADOOP_CLIENT_OPTS="-Xmx2g" hdfs dfs -ls /path/to/directory    |   tr -s " "  |  cut -d' ' -f6-8 | grep "^[0-9]" |  awk 'BEGIN{ MIN=178*24*60; LAST=60*MIN; "date +%s" | getline NOW } { cmd="date
+-d'\''"$1" "$2"'\'' +%s"; cmd | getline WHEN; DIFF=NOW-WHEN; if(DIFF > LAST){ print $3}}; close(cmd);' > $tmpfile
+
+#ok
+#HADOOP_CLIENT_OPTS="-Xmx2g" hdfs dfs -ls hdfs://akanameservice/warehouse/tablespace/external/hive/ekranperformancetracing_daily_avg/ | tr -s " " | cut -d' ' -f6-8 |  grep "^[0-9]" |  awk 'BEGIN{
+MIN=140*24*60; LAST=60*MIN; "date +%s" | getline NOW } { cmd="date -d'\''"$1" "$2"'\'' +%s"; cmd | getline WHEN; DIFF=NOW-WHEN; if(DIFF > LAST){ print $3}}; close(cmd);' > $tmpfile
+# spark
+HADOOP_CLIENT_OPTS="-Xmx2g" hdfs dfs -ls hdfs://akanameservice/warehouse/tablespace/external/hive/ekranperformancetracing_daily_avg | grep -v inprogress | tr -s " " | cut -d' ' -f6-8 |  grep "^[0-
+9]" |  awk 'BEGIN{ MIN=8*30*24*60; LAST=60*MIN; "date +%s" | getline NOW } { cmd="date -d'\''"$1" "$2"'\'' +%s"; cmd | getline WHEN; DIFF=NOW-WHEN; if(DIFF > LAST){ print $3}}; close(cmd);' > $tmp
+file
+#hdfs dfs -rm $(cat $tmpfile)
+hdfs dfs -rm -skipTrash $(head -12000  $tmpfile) >> $log 2>&1
+wc -l $tmpfile  >> $log 2>&1
+sed -e '1,1200d' $tmpfile > $tmpfile2.txt
+mv $tmpfile2 $tmpfile >> $log 2>&1
+wc -l $tmpfile >> $log 2>&1
